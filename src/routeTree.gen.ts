@@ -9,38 +9,195 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ReadyRouteImport } from './routes/ready'
+import { Route as QuizRouteImport } from './routes/quiz'
+import { Route as LetterRouteImport } from './routes/letter'
+import { Route as IntroRouteImport } from './routes/intro'
+import { Route as HubRouteImport } from './routes/hub'
+import { Route as HeartRouteImport } from './routes/heart'
+import { Route as FinalRouteImport } from './routes/final'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MemoryIdRouteImport } from './routes/memory.$id'
 
+const ReadyRoute = ReadyRouteImport.update({
+  id: '/ready',
+  path: '/ready',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuizRoute = QuizRouteImport.update({
+  id: '/quiz',
+  path: '/quiz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LetterRoute = LetterRouteImport.update({
+  id: '/letter',
+  path: '/letter',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IntroRoute = IntroRouteImport.update({
+  id: '/intro',
+  path: '/intro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HubRoute = HubRouteImport.update({
+  id: '/hub',
+  path: '/hub',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HeartRoute = HeartRouteImport.update({
+  id: '/heart',
+  path: '/heart',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinalRoute = FinalRouteImport.update({
+  id: '/final',
+  path: '/final',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MemoryIdRoute = MemoryIdRouteImport.update({
+  id: '/memory/$id',
+  path: '/memory/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/final': typeof FinalRoute
+  '/heart': typeof HeartRoute
+  '/hub': typeof HubRoute
+  '/intro': typeof IntroRoute
+  '/letter': typeof LetterRoute
+  '/quiz': typeof QuizRoute
+  '/ready': typeof ReadyRoute
+  '/memory/$id': typeof MemoryIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/final': typeof FinalRoute
+  '/heart': typeof HeartRoute
+  '/hub': typeof HubRoute
+  '/intro': typeof IntroRoute
+  '/letter': typeof LetterRoute
+  '/quiz': typeof QuizRoute
+  '/ready': typeof ReadyRoute
+  '/memory/$id': typeof MemoryIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/final': typeof FinalRoute
+  '/heart': typeof HeartRoute
+  '/hub': typeof HubRoute
+  '/intro': typeof IntroRoute
+  '/letter': typeof LetterRoute
+  '/quiz': typeof QuizRoute
+  '/ready': typeof ReadyRoute
+  '/memory/$id': typeof MemoryIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/final'
+    | '/heart'
+    | '/hub'
+    | '/intro'
+    | '/letter'
+    | '/quiz'
+    | '/ready'
+    | '/memory/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/final'
+    | '/heart'
+    | '/hub'
+    | '/intro'
+    | '/letter'
+    | '/quiz'
+    | '/ready'
+    | '/memory/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/final'
+    | '/heart'
+    | '/hub'
+    | '/intro'
+    | '/letter'
+    | '/quiz'
+    | '/ready'
+    | '/memory/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FinalRoute: typeof FinalRoute
+  HeartRoute: typeof HeartRoute
+  HubRoute: typeof HubRoute
+  IntroRoute: typeof IntroRoute
+  LetterRoute: typeof LetterRoute
+  QuizRoute: typeof QuizRoute
+  ReadyRoute: typeof ReadyRoute
+  MemoryIdRoute: typeof MemoryIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/ready': {
+      id: '/ready'
+      path: '/ready'
+      fullPath: '/ready'
+      preLoaderRoute: typeof ReadyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quiz': {
+      id: '/quiz'
+      path: '/quiz'
+      fullPath: '/quiz'
+      preLoaderRoute: typeof QuizRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/letter': {
+      id: '/letter'
+      path: '/letter'
+      fullPath: '/letter'
+      preLoaderRoute: typeof LetterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/intro': {
+      id: '/intro'
+      path: '/intro'
+      fullPath: '/intro'
+      preLoaderRoute: typeof IntroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hub': {
+      id: '/hub'
+      path: '/hub'
+      fullPath: '/hub'
+      preLoaderRoute: typeof HubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/heart': {
+      id: '/heart'
+      path: '/heart'
+      fullPath: '/heart'
+      preLoaderRoute: typeof HeartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/final': {
+      id: '/final'
+      path: '/final'
+      fullPath: '/final'
+      preLoaderRoute: typeof FinalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +205,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/memory/$id': {
+      id: '/memory/$id'
+      path: '/memory/$id'
+      fullPath: '/memory/$id'
+      preLoaderRoute: typeof MemoryIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FinalRoute: FinalRoute,
+  HeartRoute: HeartRoute,
+  HubRoute: HubRoute,
+  IntroRoute: IntroRoute,
+  LetterRoute: LetterRoute,
+  QuizRoute: QuizRoute,
+  ReadyRoute: ReadyRoute,
+  MemoryIdRoute: MemoryIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
