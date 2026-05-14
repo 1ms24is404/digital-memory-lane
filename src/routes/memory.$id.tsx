@@ -39,12 +39,65 @@ function Memory() {
         </div>
 
         <div className="mt-6 grid flex-1 grid-cols-2 gap-4 overflow-auto md:grid-cols-4 md:gap-6">
-          {[0, 1, 2].map((i) => (
-            <div key={i} className={`polaroid ${ROT[i]}`}>
-              <div className="frame">photo {i + 1}</div>
-              <p className="mt-2 px-1 font-hand text-base text-neutral-800">— a moment.</p>
-            </div>
-          ))}
+
+  <div className={`polaroid ${ROT[0]}`}>
+    <div className="frame overflow-hidden">
+      <img
+        src={`/images/${id}/${id}-1.jpg`}
+        alt=""
+        className="h-full w-full object-cover"
+      />
+    </div>
+    <p className="mt-2 px-1 font-hand text-base text-neutral-800">
+      — a moment.
+    </p>
+  </div>
+
+  <div className={`polaroid ${ROT[1]}`}>
+    <div className="frame overflow-hidden">
+      <img
+        src={`/images/${id}/${id}-2.jpg`}
+        alt=""
+        className="h-full w-full object-cover"
+      />
+    </div>
+    <p className="mt-2 px-1 font-hand text-base text-neutral-800">
+      — chaos.
+    </p>
+  </div>
+
+  <div className={`polaroid ${ROT[2]}`}>
+    <div className="frame overflow-hidden">
+      <img
+        src={`/images/${id}/${id}-3.jpg`}
+        alt=""
+        className="h-full w-full object-cover"
+      />
+    </div>
+    <p className="mt-2 px-1 font-hand text-base text-neutral-800">
+      — unforgettable.
+    </p>
+  </div>
+
+  <div className={`polaroid ${ROT[3]}`}>
+    <div className="frame relative overflow-hidden">
+      <video
+        controls
+        className="h-full w-full object-cover"
+      >
+        <source
+          src={`/videos/${id}/${id}-video.mp4`}
+          type="video/mp4"
+        />
+      </video>
+    </div>
+
+    <p className="mt-2 px-1 font-hand text-base text-neutral-800">
+      {data.caption}
+    </p>
+  </div>
+
+</div>
           <div className={`polaroid ${ROT[3]}`}>
             <div className="frame relative overflow-hidden">
               <span>video clip</span>
