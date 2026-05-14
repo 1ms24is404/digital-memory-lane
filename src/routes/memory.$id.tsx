@@ -31,7 +31,7 @@ function Memory() {
   }
 
   return (
-    <Scene theme={data.theme}>
+    <Scene theme={data.theme} vignette>
       <div className="flex h-full w-full flex-col px-6 pt-8 pb-6">
         <div className="text-center">
           <p className="font-hand text-lg text-white/55">{data.tag}</p>
@@ -39,73 +39,44 @@ function Memory() {
         </div>
 
         <div className="mt-6 grid flex-1 grid-cols-2 gap-4 overflow-auto md:grid-cols-4 md:gap-6">
+          <div className={`polaroid ${ROT[0]}`}>
+            <div className="frame memory-frame overflow-hidden">
+              <img
+                src={`/images/${id}/${id}-1.jpeg`}
+                alt=""
+                className="h-full w-full object-contain"
+              />
+            </div>
+            <p className="mt-2 px-1 font-hand text-base text-neutral-800">— a moment.</p>
+          </div>
 
-  <div className={`polaroid ${ROT[0]}`}>
-    <div className="frame overflow-hidden">
-      <img
-        src={`/images/${id}/${id}-1.jpg`}
-        alt=""
-        className="h-full w-full object-cover"
-      />
-    </div>
-    <p className="mt-2 px-1 font-hand text-base text-neutral-800">
-      — a moment.
-    </p>
-  </div>
+          <div className={`polaroid ${ROT[1]}`}>
+            <div className="frame memory-frame overflow-hidden">
+              <img
+                src={`/images/${id}/${id}-2.jpeg`}
+                alt=""
+                className="h-full w-full object-contain"
+              />
+            </div>
+            <p className="mt-2 px-1 font-hand text-base text-neutral-800">— chaos.</p>
+          </div>
 
-  <div className={`polaroid ${ROT[1]}`}>
-    <div className="frame overflow-hidden">
-      <img
-        src={`/images/${id}/${id}-2.jpg`}
-        alt=""
-        className="h-full w-full object-cover"
-      />
-    </div>
-    <p className="mt-2 px-1 font-hand text-base text-neutral-800">
-      — chaos.
-    </p>
-  </div>
+          <div className={`polaroid ${ROT[2]}`}>
+            <div className="frame memory-frame overflow-hidden">
+              <img
+                src={`/images/${id}/${id}-3.jpeg`}
+                alt=""
+                className="h-full w-full object-contain"
+              />
+            </div>
+            <p className="mt-2 px-1 font-hand text-base text-neutral-800">— unforgettable.</p>
+          </div>
 
-  <div className={`polaroid ${ROT[2]}`}>
-    <div className="frame overflow-hidden">
-      <img
-        src={`/images/${id}/${id}-3.jpg`}
-        alt=""
-        className="h-full w-full object-cover"
-      />
-    </div>
-    <p className="mt-2 px-1 font-hand text-base text-neutral-800">
-      — unforgettable.
-    </p>
-  </div>
-
-  <div className={`polaroid ${ROT[3]}`}>
-    <div className="frame relative overflow-hidden">
-      <video
-        controls
-        className="h-full w-full object-cover"
-      >
-        <source
-          src={`/videos/${id}/${id}-video.mp4`}
-          type="video/mp4"
-        />
-      </video>
-    </div>
-
-    <p className="mt-2 px-1 font-hand text-base text-neutral-800">
-      {data.caption}
-    </p>
-  </div>
-
-</div>
           <div className={`polaroid ${ROT[3]}`}>
-            <div className="frame relative overflow-hidden">
-              <span>video clip</span>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/15 backdrop-blur-md">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z" /></svg>
-                </div>
-              </div>
+            <div className="frame memory-frame relative overflow-hidden">
+              <video controls className="h-full w-full object-contain">
+                <source src={`/videos/${id}/${id}-video.mp4`} type="video/mp4" />
+              </video>
             </div>
             <p className="mt-2 px-1 font-hand text-base text-neutral-800">{data.caption}</p>
           </div>

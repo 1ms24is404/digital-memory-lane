@@ -164,6 +164,14 @@
   from { opacity: 0; filter: blur(14px); transform: scale(1.02); }
   to   { opacity: 1; filter: blur(0);    transform: scale(1); }
 }
+.page-turn {
+  animation: page-turn 1s cubic-bezier(.2,.7,.2,1) both;
+  transform-origin: 0% 50%;
+}
+@keyframes page-turn {
+  from { opacity: 0; transform: perspective(1200px) rotateY(-6deg) translateX(-2%); }
+  to { opacity: 1; transform: perspective(1200px) rotateY(0deg) translateX(0); }
+}
 
 /* Polaroid scrapbook */
 .polaroid {
@@ -188,6 +196,9 @@
   font-family: var(--font-hand);
   font-size: 1.1rem;
 }
+.polaroid .memory-frame {
+  aspect-ratio: 3 / 4;
+}
 
 /* Glossy button */
 .cine-btn {
@@ -207,6 +218,12 @@
   transform: translateY(-2px);
   background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06));
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 16px 40px rgba(0,0,0,0.5);
+}
+.cine-btn.glow {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.2),
+    0 16px 40px rgba(0,0,0,0.55),
+    0 0 24px rgba(255,255,255,0.28);
 }
 
 /* Heartbeat */
@@ -229,6 +246,28 @@
 /* Typing caret */
 .caret::after { content: "▍"; margin-left: 2px; animation: caret 1s steps(1) infinite; opacity: .7; }
 @keyframes caret { 50% { opacity: 0; } }
+
+/* Confetti */
+.confetti {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 5;
+}
+.confetti-piece {
+  position: absolute;
+  top: -10%;
+  border-radius: 2px;
+  opacity: 0.85;
+  animation-name: confetti-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes confetti-fall {
+  from { transform: translateY(-10%) rotate(0deg); }
+  to { transform: translateY(120vh) rotate(360deg); }
+}
 
 /* Section themes — set --tint-a/--tint-b on container */
 .theme-purple   { --tint-a: 120 80 200; --tint-b: 80 40 140; }

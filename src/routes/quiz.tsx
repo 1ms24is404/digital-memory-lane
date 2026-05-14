@@ -5,17 +5,39 @@ import { Scene } from "@/components/Scene";
 export const Route = createFileRoute("/quiz")({ component: Quiz });
 
 const QUESTIONS = [
-  { q: "What's our most repeated inside joke?", opts: ["the one about the chair", "the cursed playlist", "that one professor's voice", "you know which one"] },
-  { q: "Where do we always end up at 2am?", opts: ["the parking lot", "your room", "that diner", "lost"] },
-  { q: "Pick our anthem.", opts: ["song A", "song B", "song C", "song D"] },
-  { q: "What snack is non-negotiable?", opts: ["maggi", "chips", "ice cream", "everything"] },
-  { q: "Best memory of us?", opts: ["that night", "that trip", "that random tuesday", "all of it"] },
+  {
+    q: "Who is more likely to survive an exam using pure luck?",
+    opts: ["Me 😭", "You 😭", "We both are academically finished", "Bro trust me I studied (biggest lie ever)"],
+  },
+  {
+    q: "What defines our friendship best?",
+    opts: [
+      "Sending reels instead of replying",
+      "Bullying each other affectionately",
+      "Acting normal in public and insane privately",
+      "One braincell shared between two people",
+    ],
+  },
+  {
+    q: "What was our strongest skill in class?",
+    opts: ["Listening sincerely", "Gossiping silently", "Pretending to understand", "Surviving somehow"],
+  },
+  {
+    q: "Which memory deserves a Netflix documentary?",
+    opts: ["The dance disaster", "That one hangout", "Classroom chaos", "All of the above 😭"],
+  },
+  {
+    q: "Final Question 💌\nWould I choose you as my best friend again?",
+    opts: ["Always", "Obviously", "In every universe", "You're stuck with me now"],
+  },
 ];
+const ANSWERS = [2, 3, 1, 3, 2];
 
 function Quiz() {
   const nav = useNavigate();
   const [i, setI] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
+  const [score, setScore] = useState(0);
 
   const next = () => {
     if (i < QUESTIONS.length - 1) {
@@ -24,6 +46,12 @@ function Quiz() {
     } else {
       nav({ to: "/heart" });
     }
+  };
+
+  const choose = (idx: number) => {
+    if (picked !== null) return;
+    setPicked(idx);
+    if (idx === ANSWERS[i]) setScore((s) => s + 1);
   };
 
   const q = QUESTIONS[i];
@@ -35,7 +63,7 @@ function Quiz() {
         <div className="w-full max-w-xl">
           <div className="mb-8 flex items-center justify-between text-xs tracking-widest text-white/50">
             <span>question {i + 1} / {QUESTIONS.length}</span>
-            <span>quiz</span>
+            <span>score {score} / {QUESTIONS.length}</span>
           </div>
           <div className="mb-10 h-px w-full overflow-hidden bg-white/10">
             <div className="h-full bg-white/70 transition-[width] duration-700" style={{ width: `${progress}%` }} />
@@ -47,10 +75,12 @@ function Quiz() {
             {q.opts.map((opt, idx) => (
               <button
                 key={idx}
-                onClick={() => setPicked(idx)}
+                onClick={() => choose(idx)}
                 className={`group flex items-center justify-between rounded-lg border px-5 py-4 text-left text-white/85 transition ${
-                  picked === idx
-                    ? "border-white/60 bg-white/10"
+                  picked !== null
+                    ? idx === ANSWERS[i]
+                      ? "border-emerald-200/80 bg-emerald-200/20 text-emerald-50"
+                      : "border-rose-300/70 bg-rose-300/15 text-rose-50"
                     : "border-white/10 bg-white/[0.02] hover:border-white/30 hover:bg-white/[0.05]"
                 }`}
               >

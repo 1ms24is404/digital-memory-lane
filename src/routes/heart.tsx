@@ -9,14 +9,20 @@ function HeartGame() {
   const nav = useNavigate();
   const [clicks, setClicks] = useState(0);
   const [bursting, setBursting] = useState(false);
-  const [floats, setFloats] = useState<number[]>([]);
+  const [floats, setFloats] = useState<{ id: number; left: number; size: number; hue: number }[]>([]);
   const MAX = 12;
 
   const click = () => {
     if (bursting) return;
     const next = Math.min(MAX, clicks + 1);
     setClicks(next);
-    setFloats((f) => [...f, Date.now()]);
+    const burst = Array.from({ length: 3 }, (_, i) => ({
+      id: Date.now() + i,
+      left: 15 + Math.random() * 70,
+      size: 16 + Math.random() * 16,
+      hue: 330 + Math.random() * 30,
+    }));
+    setFloats((f) => [...f, ...burst]);
     if (next >= MAX) {
       setBursting(true);
       setTimeout(() => nav({ to: "/letter" }), 1600);
@@ -32,12 +38,17 @@ function HeartGame() {
         <h1 className="mt-1 text-4xl text-white md:text-5xl">until it's full</h1>
 
         <div className="relative mt-16 flex h-64 w-64 items-center justify-center">
-          {floats.slice(-8).map((id, i) => (
+          {floats.slice(-18).map((p, i) => (
             <Heart
-              key={id}
-              size={20}
-              className="absolute float-heart text-rose-300"
-              style={{ left: `${30 + Math.random() * 40}%`, fill: "currentColor", animationDelay: `${i * 0.05}s` }}
+              key={p.id}
+              size={p.size}
+              className="absolute float-heart"
+              style={{
+                left: `${p.left}%`,
+                color: `hsl(${p.hue} 70% 70%)`,
+                fill: "currentColor",
+                animationDelay: `${i * 0.04}s`,
+              }}
             />
           ))}
           <button

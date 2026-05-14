@@ -7,13 +7,38 @@ export const Route = createFileRoute("/final")({ component: Final });
 
 function Final() {
   const nav = useNavigate();
+  const collageImages = useMemo(
+    () => [
+      "/images/collage/collage-1.jpeg",
+      "/images/collage/collage-2.jpeg",
+      "/images/collage/collage-3.jpeg",
+      "/images/collage/collage-4.jpeg",
+      "/images/collage/collage-5.jpeg",
+      "/images/collage/collage-6.jpeg",
+    ],
+    [],
+  );
+  const collageLabels = useMemo(
+    () => ["laughs", "dance", "class", "hangouts", "nonsense", "always"],
+    [],
+  );
   const photos = useMemo(
     () =>
-      Array.from({ length: 9 }, (_, i) => ({
-        x: 5 + (i % 3) * 30 + (Math.random() - 0.5) * 8,
-        y: 8 + Math.floor(i / 3) * 28 + (Math.random() - 0.5) * 6,
-        r: (Math.random() - 0.5) * 14,
-        d: i * 0.15,
+      Array.from({ length: collageImages.length }, (_, i) => ({
+        r: (Math.random() - 0.5) * 6,
+        d: i * 0.08,
+      })),
+    [collageImages.length],
+  );
+  const confetti = useMemo(
+    () =>
+      Array.from({ length: 24 }, (_, i) => ({
+        left: Math.random() * 100,
+        delay: Math.random() * 2.2,
+        duration: 3.2 + Math.random() * 2,
+        hue: (i * 37) % 360,
+        size: 6 + Math.random() * 6,
+        tilt: (Math.random() - 0.5) * 30,
       })),
     [],
   );
@@ -26,22 +51,50 @@ function Final() {
   return (
     <Scene theme="theme-blend">
       <div className="relative h-full w-full">
-        <div className="pointer-events-none absolute inset-0">
-          {photos.map((p, i) => (
-            <div
+        <div className="confetti">
+          {confetti.map((p, i) => (
+            <span
               key={i}
-              className="polaroid absolute scene-enter"
+              className="confetti-piece"
               style={{
-                left: `${p.x}%`,
-                top: `${p.y}%`,
-                width: "min(22vw, 180px)",
-                transform: `rotate(${p.r}deg)`,
-                animationDelay: `${p.d}s`,
+                left: `${p.left}%`,
+                background: `hsl(${p.hue} 70% 60%)`,
+                width: `${p.size}px`,
+                height: `${p.size * 1.6}px`,
+                transform: `rotate(${p.tilt}deg)`,
+                animationDelay: `${p.delay}s`,
+                animationDuration: `${p.duration}s`,
               }}
-            >
-              <div className="frame">us</div>
-            </div>
+            />
           ))}
+        </div>
+        <div className="pointer-events-none absolute inset-0 px-6 pt-10">
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
+            {photos.map((p, i) => (
+              <div
+                key={i}
+                className="polaroid scene-enter group"
+                style={{
+                  width: "min(28vw, 240px)",
+                  transform: `rotate(${p.r}deg)`,
+                  animationDelay: `${p.d}s`,
+                }}
+              >
+                <div className="frame relative overflow-hidden">
+                  <img
+                    src={collageImages[i]}
+                    alt=""
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 flex items-end justify-center bg-black/0 opacity-0 transition group-hover:bg-black/20 group-hover:opacity-100">
+                    <span className="mb-3 rounded-full bg-black/60 px-3 py-1 text-xs uppercase tracking-[0.2em] text-white/85">
+                      {collageLabels[i]}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
